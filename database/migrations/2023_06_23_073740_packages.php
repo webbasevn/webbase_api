@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
+            $table->string('icon');
+            $table->string('color');
             $table->bigInteger('price');
             $table->longText('roles');
             $table->timestamps();

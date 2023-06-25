@@ -18,9 +18,6 @@ class AdminMiddleWare
     public function handle(Request $request, Closure $next)
     {
         $credentials = $request->user()->role_id;
-
-        
-        dd($credentials);
         return $next($request);
     }
 }

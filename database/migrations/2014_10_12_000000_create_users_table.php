@@ -24,6 +24,8 @@ return new class extends Migration
             $table->bigInteger('city_id')->nullable();
             $table->bigInteger('district_id')->nullable();
             $table->bigInteger('ward_id')->nullable();
+            $table->bigInteger('package_id');
+            $table->bigInteger('role_id');
             $table->rememberToken();
             $table->timestamps();
         });
