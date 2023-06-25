@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Package;
+use App\Models\Role;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -21,6 +24,8 @@ class User extends Authenticatable
         'name',
         'phone',
         'password',
+        'package_id',
+        'role_id',
     ];
 
     /**
@@ -41,4 +46,9 @@ class User extends Authenticatable
     protected $casts = [
         'phone_verified_at' => 'datetime',
     ];
+
+
+    public function role(){
+        return $this->hasOne(Role::class,'id','role_id');
+    }
 }

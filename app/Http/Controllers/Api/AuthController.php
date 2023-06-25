@@ -90,4 +90,34 @@ class AuthController extends Controller
             'data'=>null
         ]);
     }
+
+    public function getUser(Request $request){
+
+        $user = $request->user();
+
+        return  response()->json(
+            [
+                "name" => $user->name,
+                "phone" => $user->phone,
+                "email" => $user->email,
+                "address" => $user->address
+            ]
+        );
+        
+    }
+
+    public function getUserAdmin(Request $request){
+
+        $user = $request->user();
+
+        return  response()->json(
+            [
+                "name" => $user->name,
+                "phone" => $user->phone,
+                "email" => $user->email,
+                "address" => $user->address
+            ]
+        );
+        
+    }
 }

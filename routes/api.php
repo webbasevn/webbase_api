@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Middleware\AdminMiddleWare;
+
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RoleController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,15 +18,26 @@ use App\Http\Middleware\AdminMiddleWare;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'getUser']);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
     Route::post('register', 'register');
 });
 
-Route::get('/check-middleware', function(){
-    return response()->json('ok');
-})->middleware('auth:sanctum','admin_check');
+Route::middleware(['auth:sanctum','admin_check'])->group(function () {
+
+    //debug
+    Route::get('/check-middleware', function(){
+        return response()->json('ok');
+    });
+
+    // check token admin
+    Route::get('/me', [AuthController::class, 'getUserAdmin']);
+
+    // role
+    Route::post('/role/create', [RoleController::class, 'CreateRole']);
+    Route::get('/role/query', [RoleController::class, 'QueryRole']);
+    Route::delete('/role/{role}', [RoleController::class, 'DeleteRole']);
+
+});
