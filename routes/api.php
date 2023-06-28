@@ -26,8 +26,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
 });
 
-Route::get('/cities', [])
-
 Route::middleware(['auth:sanctum','admin_check'])->group(function () {
 
     // check token admin
