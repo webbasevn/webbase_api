@@ -27,6 +27,7 @@ return new class extends Migration
             $table->longText('token');
             $table->bigInteger('package_id');
             $table->timestamps();
+            $table->softDeletes();
             $table->dateTime('expired_at');
         });
     }

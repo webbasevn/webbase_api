@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AdminMiddleWare;
 
 use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\Admin\UserControllers;
+use App\Http\Controllers\Api\Admin\UserStatusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,19 +26,21 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
 });
 
-Route::middleware(['auth:sanctum','admin_check'])->group(function () {
+Route::get('/cities', [])
 
-    //debug
-    Route::get('/check-middleware', function(){
-        return response()->json('ok');
-    });
+Route::middleware(['auth:sanctum','admin_check'])->group(function () {
 
     // check token admin
     Route::get('/me', [AuthController::class, 'getUserAdmin']);
 
-    // role
-    Route::post('/role/create', [RoleController::class, 'CreateRole']);
-    Route::get('/role/query', [RoleController::class, 'QueryRole']);
-    Route::delete('/role/{role}', [RoleController::class, 'DeleteRole']);
+    // user
+    Route::get('/admin/users', [UserControllers::class, 'ListUsers']);
+
+    // package
+    // Route::get('/admin/user_status', [UserStatusController::class, 'query']);
+    // Route::post('/admin/user_status', [UserStatusController::class, 'create']);
+    // Route::delete('/admin/user_status/{id}', [UserStatusController::class, 'delete']);
+
+    Route::apiResource('/admin/user_status',UserStatusController::class);
 
 });

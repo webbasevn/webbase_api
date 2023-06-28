@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('cdn');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

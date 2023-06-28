@@ -13,11 +13,11 @@ class Debug extends Controller
         
         $user_id = 1;
         User::find(1);
-        $query = User::with('package')->first();
+        $query = User::with('role')->first();
 
         // $result = DB::table('users')->find($user->package_id);
 
-        dd($query);
+        dd(unserialize($query->role->permision));
 
     }
 }

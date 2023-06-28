@@ -11,15 +11,12 @@ class AdminMiddleWare
 
     public function handle(Request $request, Closure $next)
     {
-        $role = ["is_admin"];
-
         $user = $request->user();
 
-        $role = User::find($user->id)->role;
+        $is_admin = User::find($user->id)->is_admin;
 
-        $permision = unserialize($role->permision);
 
-        if(in_array('is_admin',$permision) === false){
+        if($is_admin !== 1){
             return response()->json([
                 'message' => 'Bạn không có quyền',
                 'data'=>null

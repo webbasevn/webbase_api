@@ -52,12 +52,13 @@ class AuthController extends Controller
             'phone' => $request['phone'],
             'password' => Hash::make($request['password']),
             'package_id' => 1,
-            'role_id' => 1,
+            'status_id' => 1,
+            'is_admin' => false,
         ]);
 
         $token = $user->createToken(env('TOKEN_SECRET_KEY'))->plainTextToken;
 
-        $query = User::find($user->id);
+        $eloquent = User::find($user->id)->with('package','status');
 
         // lấy thông tin package
 
@@ -65,18 +66,13 @@ class AuthController extends Controller
             'message' => 'Đăng ký thành công',
             'token' => $token,
             'data' => [
+                "id" => $user->id,
                 "name" => $user->name,
                 "phone" => $user->phone,
                 "package" => [
                     "id" => $user->package_id,
                     "name" => "ten package"
                 ],
-                "id" => $user->id,
-                "role" => [
-                    "id" => $user->role_id,
-                    "name" => 'tên role',
-                    "permision" => []
-                ]
             ]
         ]);
     }

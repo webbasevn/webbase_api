@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('type');
             $table->longText('token');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

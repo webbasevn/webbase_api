@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('total_user');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
