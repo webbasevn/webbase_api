@@ -65,11 +65,11 @@ class User extends Authenticatable
         return $this->belongsTo(Ward::class);
     }
 
-    // public function package(){
-    //     return $this->hasOne(Package::class,'id','package_id');
-    // }
+    public function package(){
+        return $this->belongsTo(Package::class);
+    }
 
-    // public function status(){
-    //     return $this->hasOne(UserStatus::class,'id','status_id');
-    // }
+    public function status(){
+        return $this->belongsTo(UserStatus::class);
+    }
 }
